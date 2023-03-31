@@ -1,0 +1,27 @@
+
+#1
+Compile everything in one line:
+
+g++ -o hello hello.cpp greeting.cpp helper.cpp
+
+
+
+#2
+Compile library first:
+
+g++ -c greeting.cpp helper.cpp
+ar rcs libmylib.a greeting.o helper.o
+
+
+Compile with static library:
+
+g++ -o hello hello.cpp -L. -lmylib
+
+
+
+#3
+Compiling everything with Make
+
+make
+
+

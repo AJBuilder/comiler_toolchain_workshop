@@ -33,4 +33,4 @@ target_link_libraries(hello PRIVATE mylib)
 # Specify installation rules
 install(TARGETS hello DESTINATION bin)
 install(FILES ${HEADERS} DESTINATION include)
-install(FILES libmylib.a DESTINATION lib)
+install(TARGETS mylib DESTINATION lib)

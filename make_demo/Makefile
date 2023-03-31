@@ -4,11 +4,14 @@ LDFLAGS=-L. -lmylib
 SOURCES=hello.cpp greeting.cpp helper.cpp
 HEADERS=greeting.hpp helper.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=hello
+EXECUTABLE=hello # You can change this output executable name
 
-ifeq ($(wildcard libmylib.a),)
-# If libmylib.a doesn't exist, compile the library from source
+INSTALL_PREFIX = ./install
+
 all: $(SOURCES) $(HEADERS) libmylib.a $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 libmylib.a: greeting.o helper.o
 	ar rcs libmylib.a greeting.o helper.o
@@ -18,17 +21,6 @@ greeting.o: greeting.cpp greeting.hpp
 
 helper.o: helper.cpp helper.hpp
 	$(CC) $(CFLAGS) helper.cpp
-else
-# If libmylib.a exists, use it
-all: $(EXECUTABLE)
-
-endif
-
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
-
-.cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) libmylib.a

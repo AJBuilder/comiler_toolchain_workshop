@@ -4,14 +4,17 @@ LDFLAGS=-L. -lmylib
 SOURCES=hello.cpp greeting.cpp helper.cpp
 HEADERS=greeting.hpp helper.hpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=hello # You can change this output executable name
+EXECUTABLE=hello.out # You can change this output executable name
 
 INSTALL_PREFIX = ./install
 
 all: $(SOURCES) $(HEADERS) libmylib.a $(EXECUTABLE)
 
+noArtifacts: $(SOURCES)
+	$(CC) $(LDFLAGS) $(SOURCES) -o $(EXECUTABLE)
+
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $(EXECUTABLE)
 
 libmylib.a: greeting.o helper.o
 	ar rcs libmylib.a greeting.o helper.o
@@ -24,3 +27,5 @@ helper.o: helper.cpp helper.hpp
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) libmylib.a
+
+# VVVVV Specify installation rules here VVVVV

@@ -1,13 +1,10 @@
-# Background
-Makefiles are stupid simple, but their simplicity enables them to become complicated fast. 
-
 # Task 1 - Compile everything in one line
 You can compile an executable if you have access to all source code.
 ```
 g++ -o hello.out hello.cpp greeting.cpp helper.cpp
 ```
 
-Cleanup all build artifacts.
+Delete hello.out.
 
 # Task 2 - Compile library first
 ```
@@ -16,7 +13,7 @@ ar rcs libmylib.a greeting.o helper.o
 ```
 `ar` is a command that will bundle multiple objects together into one archive, or a "static library".
 ```
-g++ -o hello hello.cpp -L. -lmylib
+g++ -o hello.out hello.cpp -L. -lmylib
 ```
 -L specifies where to look for libraries. -l specifies what libraries.
 
@@ -24,16 +21,27 @@ Cleanup all build artifacts.
 
 # Task 3 - Compiling everything with Make
 
-We can use Makefiles to simplify a build process.
+We can use Makefiles to simplify a build process. To utilize a Makefile, run:
 
 ```
 make
 ```
+This is the same as :
+```
+make all
+```
 
-Cleanup all build artifacts. You can do this with 
+
+Cleanup all build artifacts. You can do this with:
 ```
 make clean
 ```
+
+Don't want to create build artifacts every step of the way? Try:
+```
+make noArtifacts
+```
+(This isn't convention. I just made it up to demo that there's no magic.)
 
 # Task 4 - Add install directive
 Let's edit the Makefile a bit.
@@ -61,3 +69,4 @@ uninstall:
 	rm -f $(INSTALL_PREFIX)/bin/$(EXECUTABLE)
 ```
 
+You can change the `INSTALL_PREFIX` to change where the files are installed.

@@ -30,7 +30,4 @@ add_executable(hello ${SOURCES} ${HEADERS})
 # Link with library
 target_link_libraries(hello PRIVATE mylib)
 
-# Specify installation rules
-install(TARGETS hello DESTINATION bin)
-install(FILES ${HEADERS} DESTINATION include)
-install(TARGETS mylib DESTINATION lib)
+# VVVVV Specify installation rules here VVVVV
